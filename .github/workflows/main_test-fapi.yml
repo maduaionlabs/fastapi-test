@@ -83,7 +83,7 @@ jobs:
         run: |
           az webapp config appsettings set \
             --name test-fapi \
-            --resource-group <your-resource-group> \
+            --resource-group rg-genesis-dev \
             --settings INTERNAL-API-KEY="${{ steps.keyvault.outputs.INTERNAL-API-KEY }}"
 
       - name: 'Deploy to Azure Web App'
