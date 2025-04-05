@@ -68,9 +68,19 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_67DD76E4B90A4653AFC7FDFE820EA094 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F853F7F485264B7CB9DD6FFAD0634C6A }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DA393A9D46414DFF9794D3B4428C226D }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get secrets from Key Vault
+        uses: azure/get-keyvault-secrets@v1
+        with:
+          keyvault: kvgenesis-dev
+          secrets: |
+            INTERNAL-API-KEY
+        id: keyvault
+
+      - name: Export secrets to env
+        run: |
+          echo "INTERNAL-API-KEY=${{ steps.keyvault.outputs.INTERNAL-API-KEY }}" >> $GITHUB_ENV
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
