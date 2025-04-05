@@ -71,8 +71,6 @@ jobs:
         uses: azure/get-keyvault-secrets@v1
         with:
           keyvault: kvgenesis-dev
-          secrets: |
-            RAG-SERVICE-URL, AZURE-OPENAI-ENDPOINT
 
       - name: Set App Setting for RAG-SERVICE-URL
         uses: azure/CLI@v1
