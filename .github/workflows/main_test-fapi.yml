@@ -82,7 +82,7 @@ jobs:
         with:
           azcliversion: 2.53.0
           inlineScript: |
-            az webapp config appsettings set --name "test-fapi" --resource-group "rg-genesis-dev" --settings "RAG-SERVICE-URL=${{ steps.keyvault.outputs.RAG-SERVICE-URL }}"
+            az webapp config appsettings set --name "test-fapi" --resource-group "rg-genesis-dev" --settings "RAG_SERVICE_URL=${{ steps.keyvault.outputs.RAG-SERVICE-URL }}"
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
