@@ -7,5 +7,5 @@ app = FastAPI()
 @app.get("/")
 async def root():
     print(os.environ)
-    api_key = os.getenv("INTERNAL-API-KEY")
+    api_key = os.getenv("INTERNAL_API_KEY")
     return {"message": f"api key - {api_key}"}
