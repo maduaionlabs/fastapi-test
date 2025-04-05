@@ -70,6 +70,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+
       - name: Get secrets from Key Vault
         uses: azure/get-keyvault-secrets@v1
         with:
@@ -78,6 +79,13 @@ jobs:
             INTERNAL-API-KEY
         id: keyvault
 
+      - name: Set app settings in Azure Web App
+        run: |
+          az webapp config appsettings set \
+            --name test-fapi \
+            --resource-group <your-resource-group> \
+            --settings INTERNAL-API-KEY="${{ steps.keyvault.outputs.INTERNAL-API-KEY }}"
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
@@ -85,5 +93,3 @@ jobs:
           app-name: test-fapi
           slot-name: 'Production'
           package: release.zip
-          app-settings: |
-            INTERNAL-API-KEY=${{ steps.keyvault.outputs.INTERNAL-API-KEY }}
