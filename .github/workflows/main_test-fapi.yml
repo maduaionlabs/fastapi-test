@@ -72,8 +72,7 @@ jobs:
         with:
           keyvault: kvgenesis-dev
           secrets: |
-            RAG-SERVICE-URL
-            AZURE-OPENAI-ENDPOINT
+            RAG-SERVICE-URL, AZURE-OPENAI-ENDPOINT
 
       - name: Set App Setting for RAG-SERVICE-URL
         uses: azure/CLI@v1
