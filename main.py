@@ -7,5 +7,5 @@ app = FastAPI()
 @app.get("/")
 async def root():
     print(os.environ)
-    api_key = os.getenv("INTERNAL_API")
+    api_key = os.getenv("AZURE_OPENAI_ENDPOINT")
     return {"message": f"api key - {api_key}"}

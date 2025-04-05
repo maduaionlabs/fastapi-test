@@ -73,9 +73,7 @@ jobs:
           keyvault: kvgenesis-dev
           secrets: |
             RAG-SERVICE-URL
-
-        env:
-          INTERNAL_API_KEY: ${{ steps.keyvault.outputs.RAG-SERVICE-URL }}
+            AZURE-OPENAI-ENDPOINT
 
       - name: Set App Setting for RAG-SERVICE-URL
         uses: azure/CLI@v1
@@ -83,6 +81,7 @@ jobs:
           azcliversion: 2.53.0
           inlineScript: |
             az webapp config appsettings set --name "test-fapi" --resource-group "rg-genesis-dev" --settings "RAG_SERVICE_URL=${{ steps.keyvault.outputs.RAG-SERVICE-URL }}"
+            az webapp config appsettings set --name "test-fapi" --resource-group "rg-genesis-dev" --settings "AZURE_OPENAI_ENDPOINT=${{ steps.keyvault.outputs.AZURE-OPENAI-ENDPOINT }}"
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
