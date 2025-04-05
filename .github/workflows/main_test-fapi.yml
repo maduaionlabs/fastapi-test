@@ -77,6 +77,13 @@ jobs:
         env:
           INTERNAL_API_KEY: ${{ steps.keyvault.outputs.INTERNAL-API-KEY }}
 
+      - name: Set App Setting for INTERNAL_API_KEY
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.53.0
+          inlineScript: |
+            az webapp config appsettings set --name "test-fapi" --resource-group "rg-genesis-dev" --settings "INTERNAL_API=${{ steps.keyvault.outputs.INTERNAL-API-KEY }}"
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
